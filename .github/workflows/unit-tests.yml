@@ -35,6 +35,9 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    
+    - name: Create .env file
+      run: echo ${{ secrets.BASE_URL }} > .env
 
     - name: Run Unit test
       run: |
