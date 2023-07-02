@@ -37,7 +37,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     
     - name: Create .env file
-      run: echo ${{ secrets.BASE_URL }} > .env
+      run: echo BASE_URL=\"${{ secrets.BASE_URL }}\" > .env
 
     - name: Run Unit test
       run: |
