@@ -1,6 +1,6 @@
 # This workflow handles continuos integration
 
-name: CI
+name: CI Test
 
 # When
 on:
