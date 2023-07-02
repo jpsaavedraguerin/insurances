@@ -15,5 +15,5 @@ app = FastAPI()
 @app.get("/")
 def insurances_by_id(id:str=58):
     response = httpx.get(f"{BASE_URL}/{id}").json()
-    insurance = response["insurance"]
-    return response
+    insurance_info = response["insurance"]
+    return insurance_info
