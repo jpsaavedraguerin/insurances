@@ -2,6 +2,6 @@ version: '3.7'
 
 services:
   insapp:
-    build: .
+    image: insapp:latest
     ports:
       - "9090:80"
