@@ -32,7 +32,7 @@ resource "aws_internet_gateway" "app_igw" {
 }
 
 # Public route table
-resource "aws_route_table" "app_public_rt" {
+resource "aws_route_table" "public" {
   # Create it inside the VPC app_vpc
   vpc_id = aws_vpc.app_vpc.id
 
@@ -45,7 +45,7 @@ resource "aws_route_table" "app_public_rt" {
 
 # ------ PUBLIC SUBNET ------
 
-# CIDR block for the punlic subnet
+# CIDR block for the public subnet
 variable "public_subnet_cidr_block" {
     description = "CIDR block of the public subnet"
 }
@@ -72,11 +72,11 @@ resource "aws_subnet" "app_public_subnet" {
   }
 }
 
-# Ssociate public subnet with public rt
+# Asociate public subnet with public rt
 
 resource "aws_route_table_association" "public" {
-  # ID of the public rt (app_public_rt)
-  route_table_id = aws_route_table.app_public_rt.id
+  # ID of the public rt (public)
+  route_table_id = aws_route_table.public.id
 
   # ID of public subnet (app_public_subnet)
   subnet_id = aws_subnet.app_public_subnet.id

@@ -16,7 +16,6 @@ provider "aws" {
 
 module "vpc" {
    source = "./modules/vpc"
-
    vpc_cidr_block = var.vpc_cidr_block
    public_subnet_cidr_block = var.public_subnet_cidr_block
 }
@@ -27,8 +26,9 @@ module "security_group" {
    local_ip = var.local_ip
 }
 
-module "ec2_instance" {
+module "ec2_instances" {
    source = "./modules/compute"
-   security_group = module.security_group.sg_id
+   public_key_path = var.public_key_path
+   security_group = module.security_group.app_jenkins_sg
    public_subnet = module.vpc.public_subnet_id
 }

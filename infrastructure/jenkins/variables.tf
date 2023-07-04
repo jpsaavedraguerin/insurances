@@ -19,3 +19,9 @@ variable "local_ip" {
    type = string
    sensitive = true
 }
+
+variable "public_key_path" {
+   description = "Path to the public key .pem"
+   type = string
+   sensitive = true
+}

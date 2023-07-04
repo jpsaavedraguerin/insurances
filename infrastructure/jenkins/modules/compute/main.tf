@@ -10,6 +10,11 @@ variable "public_subnet" {
   description = "The public subnet IDs assigned to the Jenkins Server"
 }
 
+# Variable to store public key path
+variable "public_key_path" {
+  description = "The path to the public key .pem"
+}
+
 # Data store for the AWS Linux AMI
 data "aws_ami" "amazon-linux" {
   most_recent = true
@@ -33,10 +38,11 @@ resource "aws_key_pair" "app_kp" {
    key_name   = "app_kp"
 
    # Passing the public key of the key pair we created
-   public_key = file("/home/sguerin/.ssh/app_kp.pub") # TODO: change dinamicaly
+   public_key = file(var.public_key_path) # TODO: change dinamicaly
 }
 
-# Create Jenkins Master ec2 instance
+
+# Create Jenkins Master
 resource "aws_instance" "jenkins_master" {
   # Select ami from data store
   ami = data.aws_ami.amazon-linux.id
@@ -58,8 +64,25 @@ resource "aws_instance" "jenkins_master" {
 
   # Tag
   tags = {
-    Name = "jenkins_master"
+    Name = "jenkins-master"
   }
+}
+
+
+# Create Jenkins Agent
+resource "aws_instance" "jenkins_build_agent" {
+    ami = data.aws_ami.amazon-linux.id
+    count = 1
+    subnet_id = var.public_subnet
+    instance_type = "t2.micro"
+    key_name = aws_key_pair.app_kp.key_name
+    associate_public_ip_address = true
+    vpc_security_group_ids = [var.security_group] # This Security Group has port [9090,9091] opened
+    user_data = "${file("${path.module}/install_java.sh")}"
+
+    tags = {
+        Name = "jenkins-agent-${count.index+1}"
+    }
 }
 
 # Create an Elastic IP for jenkins_master

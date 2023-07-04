@@ -1,5 +1,5 @@
 # ----- Security Groups outputs -----
-output "sg_id" {
+output "app_jenkins_sg" {
   description = "The ID of the security group"
   value = aws_security_group.app_jenkins_sg.id
 }
