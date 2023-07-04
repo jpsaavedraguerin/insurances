@@ -5,6 +5,12 @@ pipeline{
         }
     }
     stages{
+        stage('clone'){
+            steps{
+                git branch: "master"
+                url: "https://github.com/jpsaavedraguerin/insirances.git"
+            }
+        }
         stage('test'){
             steps{
                 sh '''
