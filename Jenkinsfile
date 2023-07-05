@@ -1,7 +1,7 @@
 pipeline{
     agent none
     stages{
-        stage('clone'){
+        stage('Clone'){
             agent{
                 node{
                     label 'build-agent'
@@ -19,7 +19,7 @@ pipeline{
                 }                
             }
         }
-        stage('prepare'){
+        stage('Prepare'){
             agent{
                 node{
                     label 'build-agent'
@@ -29,7 +29,7 @@ pipeline{
                 writeFile file: '.env', text: "${BASE_URL}"
             }
         }
-        stage('build'){
+        stage('Build'){
             agent{
                 node{
                     label 'build-agent'
@@ -41,7 +41,7 @@ pipeline{
                 }
             }
         }
-        stage('push'){
+        stage('Push'){
             agent{
                 node{
                     label 'build-agent'
@@ -58,16 +58,16 @@ pipeline{
         }
 
         stage('Pulling Image from ECR') {
-        agent{
-            node{
-                label 'deploy-agent'
+            agent{
+                node{
+                    label 'deploy-agent'
+                }
             }
-        }
             steps {
 
                 script {
-                    docker.withRegistry("https://" + "${env.ECR_IMAGE_URL}", 'ecr:us-east-1:aws-credentials') {
-                        sh "docker pull ${params.ECR_IMAGE_URL}"
+                    docker.withRegistry("https://" + "${env.ECR_URL}", 'ecr:us-east-1:aws-credentials') {
+                        sh "docker pull ${env.ECR_URL}"
                     }
                 }
             }
