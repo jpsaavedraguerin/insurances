@@ -72,5 +72,18 @@ pipeline{
                 }
             }
         }
+
+        stage('Run container app') {
+            agent{
+                node{
+                    label 'deploy-agent'
+                }
+            }
+            steps {
+                '''sh
+                sudo docker-compose up
+                '''
+            }
+        }
     }
 }
