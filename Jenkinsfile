@@ -21,11 +21,11 @@ pipeline{
         stage('build'){
             steps{
                 sh '''
-                echo "Hello World"
+                docker build -t insapp:latest .
                 '''
             }
         }
-        stage('build'){
+        stage('push'){
             steps{
                 sh '''
                 echo "Hello World"
