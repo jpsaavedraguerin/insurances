@@ -18,7 +18,14 @@ pipeline{
                 }                
             }
         }
-        stage('test'){
+        stage('build'){
+            steps{
+                sh '''
+                echo "Hello World"
+                '''
+            }
+        }
+        stage('build'){
             steps{
                 sh '''
                 echo "Hello World"
