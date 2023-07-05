@@ -26,7 +26,7 @@ pipeline{
         stage('build'){
             steps{
                 script{
-                    docker.build '$ECR_URL/insapphub:latest'
+                    docker.build "${env.ECR_URL}/insapphub:latest"
                 }
             }
         }
