@@ -18,6 +18,11 @@ pipeline{
                 }                
             }
         }
+        stage('prepare'){
+            steps{
+                writeFile file: '.env', text: ${BASE_URL}
+            }
+        }
         stage('build'){
             steps{
                 sh '''
