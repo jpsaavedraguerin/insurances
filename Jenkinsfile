@@ -67,7 +67,7 @@ pipeline{
 
                 script {
                     docker.withRegistry("https://" + "${env.ECR_URL}", 'ecr:us-east-1:aws-credentials') {
-                        sh "docker pull ${env.ECR_URL}"
+                        sh "docker pull ${env.ECR_URL}/insapphub:latest"
                     }
                 }
             }
