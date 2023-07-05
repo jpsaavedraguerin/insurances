@@ -20,7 +20,7 @@ pipeline{
         }
         stage('prepare'){
             steps{
-                writeFile file: '.env', text: ${BASE_URL}
+                writeFile file: '.env', text: "${BASE_URL}"
             }
         }
         stage('build'){
