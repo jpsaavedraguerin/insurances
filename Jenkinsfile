@@ -7,8 +7,15 @@ pipeline{
     stages{
         stage('clone'){
             steps{
-                git branch: "master"
-                url: "https://github.com/jpsaavedraguerin/insirances.git"
+                script{
+                    git branch: 'master', url: 'https://github.com/jpsaavedraguerin/insurances.git'
+                    // make sure
+                    sh "ls -lart ./*" 
+                    // List all branches 
+                    sh "git branch -a"
+                    // Checkout to master
+                    sh "git checkout master"
+                }                
             }
         }
         stage('test'){
