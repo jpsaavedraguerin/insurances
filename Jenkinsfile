@@ -25,16 +25,18 @@ pipeline{
         }
         stage('build'){
             steps{
-                sh '''
-                docker build -t insapp:latest .
-                '''
+                script{
+                    docker.build '$ECR_URL/insapphub:latest'
+                }
             }
         }
         stage('push'){
             steps{
-                sh '''
-                echo "Hello World"
-                '''
+                script{
+                    docker.withRegistry("${env.ECR_URL}", 'ecr:us-east-1:aws-credentials') {
+                    //app.push("${env.BUILD_NUMBER}")
+                    app.push("latest")
+                }
             }
         }
         
