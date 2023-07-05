@@ -56,7 +56,6 @@ pipeline{
                 }
             }
         }
-
         stage('Pulling Image from ECR') {
             agent{
                 node{
@@ -72,7 +71,6 @@ pipeline{
                 }
             }
         }
-
         stage('Run container app') {
             agent{
                 node{
