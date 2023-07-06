@@ -8,12 +8,12 @@ output "jenkins_agents_public_ip" {
    value = module.ec2_instances.jenkins_agents_public_ip
 }
 
-output "ecr_url" {
+output "ecr_name" {
   description = "ecr name"
-  value = moule.ecr.ecr_name
+  value = module.ecr.ecr_name
 }
 
 output "ecr_url" {
   description = "ecr url"
-  value = moule.ecr.ecr_url
+  value = module.ecr.ecr_url
 }
