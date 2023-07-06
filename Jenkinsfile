@@ -26,7 +26,7 @@ pipeline{
                 }
             }
             steps{
-                writeFile file: '.env', text: "${BASE_URL}"
+                writeFile file: '.env', text: "BASE_URL=${BASE_URL}"
             }
         }
         stage('Build'){
@@ -78,7 +78,7 @@ pipeline{
                 }
             }
             steps {
-                writeFile file: '.env', text: "${BASE_URL}"
+                writeFile file: '.env', text: "BASE_URL=${BASE_URL}"
                 sh 'docker image list'
                 sh 'docker run -p 9090:80 ${ECR_URL}/insapphub'
             }
