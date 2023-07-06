@@ -32,3 +32,7 @@ module "ec2_instances" {
    security_group = module.security_group.app_jenkins_sg
    public_subnet = module.vpc.public_subnet_id
 }
+
+module "ecr" {
+   source = "./modules/ecr"
+}

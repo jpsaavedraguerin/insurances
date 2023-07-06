@@ -78,7 +78,7 @@ resource "aws_instance" "jenkins_build_agent" {
     key_name = aws_key_pair.app_kp.key_name
     associate_public_ip_address = true
     vpc_security_group_ids = [var.security_group] # This Security Group has port [9090,9091] opened
-    user_data = "${file("${path.module}/install_java.sh")}"
+    user_data = "${file("${path.module}/prepare_agent.sh")}"
 
     tags = {
         Name = "jenkins-agent-${count.index+1}"

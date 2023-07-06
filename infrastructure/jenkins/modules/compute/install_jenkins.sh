@@ -11,9 +11,7 @@ gpgcheck=1
 gpgkey=https://packages.adoptium.net/artifactory/api/gpg/key/public
 EOF
 sudo dnf update 
-sudo dnf -y install temurin-17-jdk
-wget http://mirrors.jenkins.io/war-stable/latest/jenkins.war
-sudo java -jar jenkins.war --httpPort=9091 -y
+# install git
 sudo dnf -y install git-all
 
 # expand tmp
@@ -22,5 +20,12 @@ fallocate -l 2G mydrive.img
 mkfs -t ext3 mydrive.img        
 sudo umount /tmp                
 sudo mount -t auto -o loop mydrive.img /tmp
+# install jenkins
+sudo dnf -y install temurin-17-jdk
+wget http://mirrors.jenkins.io/war-stable/latest/jenkins.war
+sudo java -jar jenkins.war --httpPort=9091 -y
+
+
+
 
 sudo systemctl start jenkins
