@@ -72,7 +72,7 @@ resource "aws_instance" "jenkins_master" {
 # Create Jenkins Agent
 resource "aws_instance" "jenkins_build_agent" {
     ami = data.aws_ami.amazon-linux.id
-    count = 1
+    count = 2
     subnet_id = var.public_subnet
     instance_type = "t2.micro"
     key_name = aws_key_pair.app_kp.key_name
