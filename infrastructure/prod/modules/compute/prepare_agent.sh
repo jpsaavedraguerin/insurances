@@ -11,16 +11,26 @@ gpgcheck=1
 gpgkey=https://packages.adoptium.net/artifactory/api/gpg/key/public
 EOF
 sudo dnf update 
-sudo dnf -y install temurin-17-jdk
-wget http://mirrors.jenkins.io/war-stable/latest/jenkins.war
-sudo java -jar jenkins.war --httpPort=9091 -y
+# install git
 sudo dnf -y install git-all
+# install docker
+sudo dnf -y install docker
+# install docker-compose
+sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
 
-# expand tmp
+# change permission
+sudo usermod -a -G docker ec2-user
+
+# install java
+sudo dnf -y install temurin-17-jdk
+# expand tmp (t2.micro is too small, we need to expand the swap memory)
 cd                                 
-fallocate -l 2G mydrive.img    
+fallocate -l 4G mydrive.img    
 mkfs -t ext3 mydrive.img        
 sudo umount /tmp                
 sudo mount -t auto -o loop mydrive.img /tmp
 
-sudo systemctl start jenkins
+sudo systemctl enable docker.service
+sudo systemctl start docker.service
+

@@ -72,13 +72,13 @@ resource "aws_instance" "jenkins_master" {
 # Create Jenkins Agent
 resource "aws_instance" "jenkins_build_agent" {
     ami = data.aws_ami.amazon-linux.id
-    count = 1
+    count = 2
     subnet_id = var.public_subnet
     instance_type = "t2.micro"
     key_name = aws_key_pair.app_kp.key_name
     associate_public_ip_address = true
     vpc_security_group_ids = [var.security_group] # This Security Group has port [9090,9091] opened
-    user_data = "${file("${path.module}/install_java.sh")}"
+    user_data = "${file("${path.module}/prepare_agent.sh")}"
 
     tags = {
         Name = "jenkins-agent-${count.index+1}"

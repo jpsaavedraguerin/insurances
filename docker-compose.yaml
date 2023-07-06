@@ -2,6 +2,6 @@ version: '3.7'
 
 services:
   insapp:
-    image: insapp:latest
+    image: ${ECR_URL}:latest
     ports:
       - "9090:80"
