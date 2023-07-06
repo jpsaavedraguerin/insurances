@@ -65,7 +65,7 @@ pipeline{
             steps {
 
                 script {
-                    docker.withRegistry("https://" + "${env.ECR_URL}", 'ecr:us-east-1:aws-credentials') {
+                    docker.withRegistry("https://${env.ECR_URL}", 'ecr:us-east-1:aws-credentials') {
                         sh "docker pull ${env.ECR_URL}/insapphub:latest"
                     }
                 }
@@ -78,7 +78,9 @@ pipeline{
                 }
             }
             steps {
-                sh 'sudo docker-compose up'
+                writeFile file: '.env', text: "${BASE_URL}"
+                sh 'docker image list'
+                sh 'docker run -p 9090:80 ${ECR_URL}/insapphub'
             }
         }
     }
